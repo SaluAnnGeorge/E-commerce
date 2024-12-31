@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .wishlist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 10px 0;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .wishlist-item span {
+            font-size: 16px;
+            color: #555;
+        }
+        .wishlist-item a {
+            text-decoration: none;
+            color: #e63946;
+            font-weight: bold;
+        }
+        .wishlist-item a:hover {
+            color: #c92b36;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Wishlist</h1>
+        {% if wishlist %}
+            <ul>
+                {% for item in wishlist %}
+                    <li class="wishlist-item">
+                        <span>{{ item.product.name }} - ${{ item.product.price }}</span>
+                        <a href="{% url 'remove_from_wishlist' item.product.id %}">Remove</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="text-align: center; color: #777;">Your wishlist is empty!</p>
+        {% endif %}
+        <a class="back-link" href="{% url 'product_list' %}">Back to Products</a>
+    </div>
+</body>
+</html>
